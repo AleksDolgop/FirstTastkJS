@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Задание 1</title>
+    <style>
+        .wrapper{
+            padding: 2%;
+        }
+
+        #calculator{
+            width: 10%;
+            margin-left: auto;
+            margin-right: auto;
+            border: 1px solid gray;
+            padding: 0.5%;
+            min-width: 15em;
+        }
+
+        #calculator p{
+            margin-bottom: 0.1em;
+            margin-top: 0.2em;
+        }
+
+        #calculator input{
+            margin-bottom: 0.5em;
+            width: 90%
+        }
+    </style>
+    <script src="js/vue.js"></script>
+</head>
+<body>
+    <div class="wrapper">
+        <div id="calculator">
+            <p><b>Первое число:</b></p>
+            <input type="number" name="first_number" v-bind:value="first_number" v-on:input="first_number = $event.target.value">
+            <p><b>Второе число:</b></p>
+            <input type="number" name="second_number" v-bind:value="second_number" v-on:input="second_number = $event.target.value">
+            <button v-on:click="result">Сложить</button>
+        </div>
+    </div>
+    <script>
+        //Функция, исправляющая проблему с точностью, при сложении нецелых чисел.
+        function sum(a, b) {
+            return  Number((Number(a)*1000+Number(b)*1000)/1000);
+        }
+
+        //Объект калькулятор.   
+        const calculator = new Vue({
+            el: '#calculator',
+            data: {
+                //Значение первого поля ввода.
+                first_number: '0.1',
+                //Значение второго поля ввода.
+                second_number: '0.2'
+            },
+            methods:{
+                //Получение результата сложения.
+                result: function(){               
+                    alert('Результат:\n'+ sum(calculator.first_number, calculator.second_number));
+                }
+            }
+        });
+    </script>
+</body>
+</html>
